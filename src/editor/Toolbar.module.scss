@@ -1,5 +1,6 @@
 $text_normal: #aaa;
 $text-hover: #999;
+$text-disabled: #dddddd;
 
 .toolbar {
   border: 1px solid #E9E9E9;
@@ -13,10 +14,10 @@ $text-hover: #999;
 
   &:global(.disabled) {
     cursor: not-allowed;
-    color: #dddddd;
+    color: $text-disabled;
 
     &:hover {
-      color: #dddddd;
+      color: $text-disabled;
       background: none;
     }
   }

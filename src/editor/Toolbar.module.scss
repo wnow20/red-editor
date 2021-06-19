@@ -1,0 +1,50 @@
+$text_normal: #aaa;
+$text-hover: #999;
+
+.toolbar {
+  border: 1px solid #E9E9E9;
+}
+
+.button {
+  cursor: pointer;
+  display: inline-block;
+  color: $text_normal;
+  border-radius: 2px;
+
+  &:global(.disabled) {
+    cursor: not-allowed;
+    color: #dddddd;
+
+    &:hover {
+      color: #dddddd;
+      background: none;
+    }
+  }
+
+  &:global(.active),
+  &:hover {
+    background: rgba(170, 170, 170, .3);
+    color: $text-hover;
+  }
+}
+
+.format_color_text {
+  path:nth-of-type(1) {
+    fill: red;
+  }
+  path:nth-of-type(3) {
+    fill: $text_normal;
+  }
+
+  &:hover {
+    path:nth-of-type(1) {
+
+    }
+    path:nth-of-type(3) {
+      fill: $text-hover;
+    }
+  }
+}
+.button-group + .button-group {
+  border-left: 1px solid #E9E9E9;
+}

@@ -51,6 +51,8 @@ const Leaf = ({attributes, children, leaf}) => {
     const style: CSSProperties = {};
     leaf.size && (style.fontSize = leaf.size + "px");
     leaf.color && (style.color = leaf.color);
+    leaf.fill && (style.backgroundColor = leaf.fill);
+    leaf.strikethrough && (style.textDecoration = "line-through");
     if (leaf.bold) {
         children = <strong style={style}>{children}</strong>
     }
@@ -82,6 +84,7 @@ const HOTKEYS = {
     'mod+i': 'italic',
     'mod+u': 'underline',
     'mod+`': 'code',
+    // TODO strikethrough
 }
 
 const isMarkActive = (editor, format) => {

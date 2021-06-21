@@ -52,6 +52,11 @@ $text-disabled: #dddddd;
     }
   }
 }
+.format_color_fill {
+  path:nth-of-type(1) {
+    fill: yellow;
+  }
+}
 .button-group + .button-group {
   border-left: 1px solid #E9E9E9;
 }

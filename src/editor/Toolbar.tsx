@@ -4,6 +4,7 @@ import {BaseProps, BlockButton, ButtonGroup, MarkButton, preventEvent} from "./c
 import TypeSize from "./plugins/TypeSize";
 import TextColor from "./plugins/TextColor";
 import Heading from "./plugins/Heading";
+import FillColor from "./plugins/FillColor";
 
 export const Toolbar = (props: PropsWithChildren<BaseProps>) => {
     return (
@@ -25,6 +26,7 @@ export const Toolbar = (props: PropsWithChildren<BaseProps>) => {
                 <MarkButton format="bold" icon="format_bold"/>
                 <MarkButton format="italic" icon="format_italic"/>
                 <MarkButton format="underline" icon="format_underlined"/>
+                <MarkButton format="strikethrough" icon="strikethrough_s"/>
             </ButtonGroup>
 
             <ButtonGroup>
@@ -36,6 +38,7 @@ export const Toolbar = (props: PropsWithChildren<BaseProps>) => {
 
             <ButtonGroup>
                 <TextColor/>
+                <FillColor/>
             </ButtonGroup>
         </div>
     );

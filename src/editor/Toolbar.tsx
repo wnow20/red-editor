@@ -1,13 +1,22 @@
 import React, {PropsWithChildren} from "react";
 import "material-design-icons/iconfont/material-icons.css"
-import {BaseProps, BlockButton, ButtonGroup, MarkButton} from "./common";
+import {BaseProps, BlockButton, ButtonGroup, MarkButton, preventEvent} from "./common";
 import TypeSize from "./plugins/TypeSize";
 import TextColor from "./plugins/TextColor";
 import Heading from "./plugins/Heading";
 
 export const Toolbar = (props: PropsWithChildren<BaseProps>) => {
     return (
-        <div className="toolbar" {...props}>
+        <div
+            className="toolbar" {...props}
+            // bring about keyboard nav failed
+            onMouseDown={event => {
+                preventEvent(event);
+            }}
+            onClick={event => {
+                preventEvent(event);
+            }}
+        >
             <ButtonGroup>
                 <Heading/>
                 <TypeSize/>

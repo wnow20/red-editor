@@ -128,3 +128,7 @@ export const MarkButton = ({format, icon}) => {
         </Button>
     )
 }
+export const preventEvent = event => {
+    event.preventDefault();
+    event.stopPropagation();
+};

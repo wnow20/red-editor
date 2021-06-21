@@ -67,6 +67,7 @@ $text-disabled: #dddddd;
     border: none;
     padding: 5px 3px;
     display: block;
+    user-select: none;
 
     &:hover {
       background-color: $bg-hover;

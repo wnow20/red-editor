@@ -49,10 +49,8 @@ const Toggle = () => {
 export default function Heading() {
     return (
         <Dropdown onToggle={p => console.log(p)}>
-                <span>
-                  <Toggle/>
-                  <Menu role="menu" />
-                </span>
+            <Toggle/>
+            <Menu role="menu"/>
         </Dropdown>
     );
 }

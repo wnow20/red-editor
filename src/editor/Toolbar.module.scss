@@ -65,7 +65,8 @@ $text-disabled: #dddddd;
     background-color: transparent;
     background-image: none;
     border: none;
-    background: 5px 3px;
+    padding: 5px 3px;
+    display: block;
 
     &:hover {
       background-color: $bg-hover;

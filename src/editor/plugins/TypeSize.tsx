@@ -1,74 +1,57 @@
 import {Button} from "../common";
-import ReactDOM, {findDOMNode} from "react-dom";
-import React, {useRef, useState} from "react";
+import React from "react";
 import {useSlate} from "slate-react";
 import {Editor} from "slate";
+import {Dropdown, useDropdownMenu, useDropdownToggle} from "react-overlays";
+import styles from "../Toolbar.module.scss";
 
-const Portal = ({children}) => {
-    return typeof document === 'object'
-        ? ReactDOM.createPortal(children, document.body)
-        : null
-}
+const Toggle = () => {
+    const [props] = useDropdownToggle();
+    return (
+        <Button
+            type="button"
+            {...props}
+        >15px down</Button>
+    );
+};
 
-export default function TypeSize() {
-    let editor = useSlate();
-    const sizeRef = useRef<HTMLDivElement | null>();
-    const sizeTriggerRef = useRef<HTMLButtonElement | null>();
-    const [sizePortalVisible, setSizePortalVisible] = useState(false);
+const Menu = ({role}) => {
+    const [props, {toggle, show}] = useDropdownMenu({
+        flip: true,
+        offset: [0, 8],
+    });
+    const editor = useSlate();
+    const display = show ? "flex" : "none";
+    const sizeArray = [13, 14, 15, 16, 19, 22, 24, 29, 32, 40, 48];
 
-    function handleSizeClick(size: string) {
-        Editor.addMark(editor, "size", size);
+    function handleHeadingClick(size: number) {
+        return function (event: React.MouseEvent<HTMLButtonElement>) {
+            event.preventDefault();
+            toggle(false, event);
+            Editor.addMark(editor, "size", size);
+        };
     }
 
     return (
-        <>
-            <Button
-                ref={sizeTriggerRef}
-                onMouseDown={event => {
-                    event.preventDefault();
-                    let ele = sizeRef.current;
-                    let trigger = findDOMNode(sizeTriggerRef.current);
-                    if (trigger instanceof HTMLElement) {
-                        if (!sizePortalVisible) {
-                            ele.style.top = trigger.offsetTop + trigger.offsetHeight + "px";
-                            ele.style.left = trigger.offsetLeft + "px";
-                        } else {
-                            ele.style.top = "-9999px";
-                            ele.style.left = "-9999px";
-                        }
-                        setSizePortalVisible(!sizePortalVisible);
-                    }
-                }}
-            >15px down</Button>
-            <Portal>
-                <div
-                    ref={sizeRef}
-                    style={{
-                        top: '-9999px',
-                        left: '-9999px',
-                        position: 'absolute',
-                        zIndex: 1,
-                        padding: '3px',
-                        background: 'white',
-                        borderRadius: '4px',
-                        boxShadow: '0 1px 5px rgba(0,0,0,.2)',
-                    }}
-                >
-                    {"13,14,15,16,19,22,24,29,32,40,48".split(",").map(size => {
-                        return (
-                            <a
-                                style={{display: "block", padding: "5 20", cursor: 'pointer'}}
-                                onMouseDown={(e) => {
-                                    e.preventDefault()
-                                    setSizePortalVisible(false);
-                                    handleSizeClick(size)
-                                }}
-                                key={`size-${size}`}
-                            >{size}px</a>
-                        );
-                    })}
-                </div>
-            </Portal>
-        </>
+        <div
+            {...props}
+            role={role}
+            className={`${styles.dropdown_menu} ${display}`}
+        >
+            {sizeArray.map(size => {
+                return (
+                    <button onMouseDown={handleHeadingClick(size)} key={`size-${size}`}>{size}px</button>
+                );
+            })}
+        </div>
+    );
+};
+
+export default function TypeSize() {
+    return (
+        <Dropdown onToggle={show => console.log(show)}>
+            <Toggle/>
+            <Menu role="menu"/>
+        </Dropdown>
     );
 }

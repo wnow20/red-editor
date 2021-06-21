@@ -19,9 +19,14 @@ export const Button = forwardRef((props: PropsWithChildren<BaseProps>, ref: Ref<
     const {active, disabled, ...others} = props;
     const activeClassName = active ? "active" : '';
     const disabledClassName = disabled ? "disabled" : '';
-    return <button ref={ref} type="button"
-                   className={`${styles.button} ${activeClassName} ${disabledClassName}`} {...others}>
-    </button>;
+    return (
+        <button
+            ref={ref}
+            type="button"
+            className={`${styles.button} ${activeClassName} ${disabledClassName}`}
+            {...others}
+        />
+    );
 });
 
 type OrNull<T> = T | null

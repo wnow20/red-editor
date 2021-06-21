@@ -1,6 +1,6 @@
 import React, {CSSProperties, useCallback, useMemo, useState} from 'react';
 import isHotkey from 'is-hotkey';
-import {BaseEditor, createEditor, Descendant, Editor, Element as SlateElement, Text, Transforms} from 'slate'
+import {BaseEditor, createEditor, Descendant, Editor, Text} from 'slate'
 
 // Import the Slate components and React plugin.
 import {Editable, ReactEditor, Slate, withReact} from 'slate-react'

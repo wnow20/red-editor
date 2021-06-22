@@ -1,7 +1,8 @@
 import React, {forwardRef, PropsWithChildren, Ref} from "react";
 import styles from "./Toolbar.module.scss";
-import {Editor, Element as SlateElement, Transforms} from "slate";
-import {useSlate} from "slate-react";
+import {BaseEditor, Editor, Element as SlateElement, Text, Transforms} from "slate";
+import {ReactEditor, useSlate} from "slate-react";
+import {Property} from "csstype";
 
 export interface BaseProps {
     [key: string]: unknown
@@ -16,14 +17,14 @@ export const ButtonGroup = ({children}: PropsWithChildren<BaseProps>) => {
 };
 
 export const Button = forwardRef((props: PropsWithChildren<BaseProps>, ref: Ref<OrNull<HTMLButtonElement>>) => {
-    const {active, disabled, ...others} = props;
+    const {active, disabled, className, ...others} = props;
     const activeClassName = active ? "active" : '';
     const disabledClassName = disabled ? "disabled" : '';
     return (
         <button
             ref={ref}
             type="button"
-            className={`${styles.button} ${activeClassName} ${disabledClassName}`}
+            className={`${styles.button} ${activeClassName} ${disabledClassName} ${className??''}`}
             {...others}
         />
     );
@@ -132,3 +133,14 @@ export const preventEvent = event => {
     event.preventDefault();
     event.stopPropagation();
 };
+export type CustomElement = { type: 'paragraph'; textAlign?: Property.TextAlign; children: Text[] }
+export type CodeElement = { type: 'code'; children: Text[] }
+export type CustomText = { text: string, bold?: boolean }
+declare module 'slate' {
+    interface CustomTypes {
+        Editor: BaseEditor & ReactEditor
+        Element: CustomElement | CodeElement,
+        Text: CustomText,
+        Node: CustomElement | CustomText,
+    }
+}

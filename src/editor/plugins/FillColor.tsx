@@ -26,7 +26,7 @@ const Menu = () => {
         rootCloseEvent: "mousedown",
     });
     const editor = useSlate();
-    const display = show ? "flex" : "none";
+    const display = show ? "" : "hidden";
     const [color, setColor] = useState<String>()
     const {selection} = editor;
 

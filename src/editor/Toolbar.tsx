@@ -5,6 +5,7 @@ import TypeSize from "./plugins/TypeSize";
 import TextColor from "./plugins/TextColor";
 import Heading from "./plugins/Heading";
 import FillColor from "./plugins/FillColor";
+import FormatAlign from "./plugins/FormatAlign";
 
 export const Toolbar = (props: PropsWithChildren<BaseProps>) => {
     return (
@@ -39,6 +40,10 @@ export const Toolbar = (props: PropsWithChildren<BaseProps>) => {
             <ButtonGroup>
                 <TextColor/>
                 <FillColor/>
+            </ButtonGroup>
+
+            <ButtonGroup>
+                <FormatAlign/>
             </ButtonGroup>
         </div>
     );

@@ -1,6 +1,6 @@
 import React, {CSSProperties, useCallback, useMemo, useState} from 'react';
 import isHotkey from 'is-hotkey';
-import {BaseEditor, createEditor, Descendant, Editor, Text} from 'slate'
+import {BaseEditor, createEditor, Descendant, Editor} from 'slate'
 
 // Import the Slate components and React plugin.
 import {Editable, ReactEditor, Slate, withReact} from 'slate-react'
@@ -9,41 +9,31 @@ import './RedEditor.css';
 import {Toolbar} from "./Toolbar";
 import initialValue from "./initialValue";
 
-type CustomElement = { type: 'paragraph'; children: Text[] }
-type CodeElement = { type: 'code'; children: Text[] }
-type CustomText = { text: string, bold?: boolean }
-
-declare module 'slate' {
-    interface CustomTypes {
-        Editor: BaseEditor & ReactEditor
-        Element: CustomElement | CodeElement,
-        Text: CustomText,
-        Node: CustomElement | CustomText,
-    }
-}
 
 const Element = ({attributes, children, element}) => {
+    const style = {} as CSSProperties;
+    element.textAlign && (style.textAlign = element.textAlign);
     switch (element.type) {
         case 'block-quote':
             return <blockquote {...attributes}>{children}</blockquote>
         case 'bulleted-list':
             return <ul {...attributes}>{children}</ul>
         case 'heading-1':
-            return <h1 {...attributes}>{children}</h1>
+            return <h1 {...attributes} style={style}>{children}</h1>
         case 'heading-2':
-            return <h2 {...attributes}>{children}</h2>
+            return <h2 {...attributes} style={style}>{children}</h2>
         case 'heading-3':
-            return <h3 {...attributes}>{children}</h3>
+            return <h3 {...attributes} style={style}>{children}</h3>
         case 'heading-4':
-            return <h4 {...attributes}>{children}</h4>
+            return <h4 {...attributes} style={style}>{children}</h4>
         case 'heading-5':
-            return <h5 {...attributes}>{children}</h5>
+            return <h5 {...attributes} style={style}>{children}</h5>
         case 'list-item':
             return <li {...attributes}>{children}</li>
         case 'numbered-list':
             return <ol {...attributes}>{children}</ol>
         default:
-            return <p {...attributes}>{children}</p>
+            return <p {...attributes} style={style}>{children}</p>
     }
 }
 

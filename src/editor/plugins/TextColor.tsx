@@ -48,12 +48,6 @@ const Menu = () => {
         >
             <SketchPicker color={color} onChange={(color) => {
                 setColor(color.rgb)
-                console.log("selection");
-                console.log(selection);
-                console.log("editor");
-                console.log(editor);
-                console.log("editor.selection");
-                console.log(editor.selection);
                 Transforms.select(editor, selection);
                 Editor.addMark(editor, "color", color.hex);
             }}/>

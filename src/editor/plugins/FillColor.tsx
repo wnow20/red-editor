@@ -46,6 +46,7 @@ const Menu = () => {
             }}
             contentEditable={false}
         >
+            {/* TODO give users some colors in usual*/}
             <SketchPicker color={color} onChange={(color) => {
                 setColor(color.rgb)
                 console.log("selection");

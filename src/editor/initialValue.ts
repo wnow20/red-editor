@@ -59,4 +59,19 @@ export default [
         checked: false,
         children: [{ text: "Let's go to work!" }],
     },
+    {
+        type: 'paragraph',
+        children: [
+            {
+                text: 'In addition to block nodes, you can create inline nodes, like ',
+            },
+            {
+                text: 'hyperlinks',
+                url: 'https://en.wikipedia.org/wiki/Hypertext',
+            },
+            {
+                text: '!',
+            },
+        ],
+    },
 ]

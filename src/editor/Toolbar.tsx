@@ -7,6 +7,7 @@ import Heading from "./plugins/Heading";
 import FillColor from "./plugins/FillColor";
 import FormatAlign from "./plugins/FormatAlign";
 import {CheckListButton} from "./plugins/CheckLists";
+import {TextLinkButton} from "./plugins/TextLink";
 
 export const Toolbar = (props: PropsWithChildren<BaseProps>) => {
     return (
@@ -46,6 +47,7 @@ export const Toolbar = (props: PropsWithChildren<BaseProps>) => {
             <ButtonGroup>
                 <FormatAlign/>
                 <CheckListButton/>
+                <TextLinkButton/>
             </ButtonGroup>
         </div>
     );

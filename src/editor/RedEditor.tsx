@@ -1,15 +1,12 @@
 import React, {CSSProperties, useCallback, useMemo, useState} from 'react';
 import isHotkey from 'is-hotkey';
-import {BaseEditor, createEditor, Descendant, Editor} from 'slate'
-
-// Import the Slate components and React plugin.
-import {Editable, ReactEditor, Slate, withReact} from 'slate-react'
+import {createEditor, Descendant, Editor} from 'slate'
+import {Editable, Slate, withReact} from 'slate-react'
 import {withHistory} from 'slate-history'
 import './RedEditor.css';
 import {Toolbar} from "./Toolbar";
 import initialValue from "./initialValue";
 import {CheckListItemElement, withChecklists} from "./plugins/CheckLists";
-
 
 const Element = ({attributes, children, element}) => {
     const style = {} as CSSProperties;
@@ -46,21 +43,17 @@ const Leaf = ({attributes, children, leaf}) => {
     leaf.color && (style.color = leaf.color);
     leaf.fill && (style.backgroundColor = leaf.fill);
     leaf.strikethrough && (style.textDecoration = "line-through");
-    if (leaf.bold) {
-        children = <strong style={style}>{children}</strong>
-    }
-
+    leaf.bold && (style.fontWeight = 'bold');
+    leaf.italic && (style.fontStyle = "italic");
+    // TODO 与 strikethrough冲突
+    leaf.underline && (style.textDecoration = "underline");
     if (leaf.code) {
         children = <code style={style}>{children}</code>
     }
-
-    if (leaf.italic) {
-        children = <em style={style}>{children}</em>
+    if (leaf.url) {
+        children = <a href={leaf.url}>{children}</a>;
     }
 
-    if (leaf.underline) {
-        children = <u style={style}>{children}</u>
-    }
     return <span {...attributes} style={style}>{children}</span>
 }
 const toggleMark = (editor, format) => {
@@ -77,7 +70,7 @@ const HOTKEYS = {
     'mod+i': 'italic',
     'mod+u': 'underline',
     'mod+`': 'code',
-    // TODO strikethrough
+    // TODO hotkeys
 }
 
 const isMarkActive = (editor, format) => {

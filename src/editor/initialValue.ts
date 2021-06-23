@@ -30,7 +30,33 @@ export default [
         children: [{ text: 'A wise quote.' }],
     },
     {
-        type: 'paragraph',
-        children: [{ text: 'Try it out for yourself!' }],
+        type: 'check-list-item',
+        checked: true,
+        children: [{ text: 'Slide to the left.' }],
+    },
+    {
+        type: 'check-list-item',
+        checked: true,
+        children: [{ text: 'Slide to the right.' }],
+    },
+    {
+        type: 'check-list-item',
+        checked: false,
+        children: [{ text: 'Criss-cross.' }],
+    },
+    {
+        type: 'check-list-item',
+        checked: true,
+        children: [{ text: 'Criss-cross!' }],
+    },
+    {
+        type: 'check-list-item',
+        checked: false,
+        children: [{ text: 'Cha cha real smooth…' }],
+    },
+    {
+        type: 'check-list-item',
+        checked: false,
+        children: [{ text: "Let's go to work!" }],
     },
 ]

@@ -1,0 +1,19 @@
+.checkListItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  & + & {
+    margin-top: 0;
+  }
+
+  .content {
+    flex: 1;
+    opacity: 1;
+    text-decoration: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

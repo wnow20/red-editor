@@ -8,6 +8,7 @@ import {withHistory} from 'slate-history'
 import './RedEditor.css';
 import {Toolbar} from "./Toolbar";
 import initialValue from "./initialValue";
+import {CheckListItemElement, withChecklists} from "./plugins/CheckLists";
 
 
 const Element = ({attributes, children, element}) => {
@@ -32,6 +33,8 @@ const Element = ({attributes, children, element}) => {
             return <li {...attributes}>{children}</li>
         case 'numbered-list':
             return <ol {...attributes}>{children}</ol>
+        case 'check-list-item':
+            return <CheckListItemElement {...{attributes, children, element}} />
         default:
             return <p {...attributes} style={style}>{children}</p>
     }
@@ -83,7 +86,7 @@ const isMarkActive = (editor, format) => {
 }
 
 function RedEditor() {
-    const editor = useMemo(() => withHistory(withReact(createEditor())), [])
+    const editor = useMemo(() => withChecklists(withHistory(withReact(createEditor()))), [])
     const [value, setValue] = useState<Descendant[]>(initialValue as any)
     const renderElement = useCallback(props => <Element {...props} />, [])
     const renderLeaf = useCallback(props => <Leaf {...props} />, [])

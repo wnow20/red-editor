@@ -135,12 +135,13 @@ export const preventEvent = event => {
 };
 export type CustomElement = { type: 'paragraph'; textAlign?: Property.TextAlign; children: Text[] }
 export type CodeElement = { type: 'code'; children: Text[] }
+export type CheckedElement = {type: "check-list-item", checked: boolean, children: Text[]}
 export type CustomText = { text: string, bold?: boolean }
 declare module 'slate' {
     interface CustomTypes {
         Editor: BaseEditor & ReactEditor
-        Element: CustomElement | CodeElement,
+        Element: CustomElement | CodeElement | CheckedElement,
         Text: CustomText,
-        Node: CustomElement | CustomText,
+        Node: CustomElement | CustomText | CheckedElement,
     }
 }

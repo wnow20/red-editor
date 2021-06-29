@@ -7,7 +7,7 @@ import Heading from "./plugins/Heading";
 import FillColor from "./plugins/FillColor";
 import FormatAlign from "./plugins/FormatAlign";
 import {CheckListButton} from "./plugins/CheckLists";
-import {TextLinkButton} from "./plugins/TextLink";
+import {LinkButton} from "./plugins/Link";
 
 export const Toolbar = (props: PropsWithChildren<BaseProps>) => {
     return (
@@ -15,6 +15,12 @@ export const Toolbar = (props: PropsWithChildren<BaseProps>) => {
             className="toolbar" {...props}
             // bring about keyboard nav failed
             onMouseDown={event => {
+                console.log(event);
+                if (event.target instanceof HTMLInputElement) {
+                    if (event.target.getAttribute("id") === 'text-link-link') {
+                        return;
+                    }
+                }
                 preventEvent(event);
             }}
             onClick={event => {
@@ -47,7 +53,7 @@ export const Toolbar = (props: PropsWithChildren<BaseProps>) => {
             <ButtonGroup>
                 <FormatAlign/>
                 <CheckListButton/>
-                <TextLinkButton/>
+                <LinkButton/>
             </ButtonGroup>
         </div>
     );

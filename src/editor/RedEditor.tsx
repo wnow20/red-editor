@@ -7,6 +7,7 @@ import './RedEditor.css';
 import {Toolbar} from "./Toolbar";
 import initialValue from "./initialValue";
 import {CheckListItemElement, withChecklists} from "./plugins/CheckLists";
+import {Link, withLinks} from "./plugins/Link";
 
 const Element = ({attributes, children, element}) => {
     const style = {} as CSSProperties;
@@ -30,6 +31,8 @@ const Element = ({attributes, children, element}) => {
             return <li {...attributes}>{children}</li>
         case 'numbered-list':
             return <ol {...attributes}>{children}</ol>
+        case 'link':
+            return <Link {...{attributes, children, element}}/>
         case 'check-list-item':
             return <CheckListItemElement {...{attributes, children, element}} />
         default:
@@ -49,9 +52,6 @@ const Leaf = ({attributes, children, leaf}) => {
     leaf.underline && (style.textDecoration = "underline");
     if (leaf.code) {
         children = <code style={style}>{children}</code>
-    }
-    if (leaf.url) {
-        children = <a href={leaf.url}>{children}</a>;
     }
 
     return <span {...attributes} style={style}>{children}</span>
@@ -79,14 +79,28 @@ const isMarkActive = (editor, format) => {
 }
 
 function RedEditor() {
-    const editor = useMemo(() => withChecklists(withHistory(withReact(createEditor()))), [])
+    const editor = useMemo(() => withLinks(withChecklists(withHistory(withReact(createEditor())))), [])
     const [value, setValue] = useState<Descendant[]>(initialValue as any)
     const renderElement = useCallback(props => <Element {...props} />, [])
     const renderLeaf = useCallback(props => <Leaf {...props} />, [])
 
+    // const [linkPopperVisible, setLinkPopperVisible] = useState<boolean>(false);
+    // const toggleLinkPopper = useCallback((visible: boolean) => {
+    //     setLinkPopperVisible(visible);
+    // }, [linkPopperVisible]);
+    // const linkPopperContext: LinkPopper = useMemo(() => {
+    //     return {
+    //         linkPopperVisible,
+    //         toggleLinkPopper,
+    //     };
+    // }, [linkPopperVisible, toggleLinkPopper]);
+
     return (
         <div className="red-editor">
-            <Slate editor={editor} value={value} onChange={setValue}>
+            <Slate editor={editor} value={value} onChange={v => {
+                console.log(v);
+                setValue(v);
+            }}>
                 <Toolbar/>
                 <Editable
                     renderElement={renderElement}

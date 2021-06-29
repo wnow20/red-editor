@@ -66,8 +66,9 @@ export default [
                 text: 'In addition to block nodes, you can create inline nodes, like ',
             },
             {
-                text: 'hyperlinks',
+                type: 'link',
                 url: 'https://en.wikipedia.org/wiki/Hypertext',
+                children: [{text: 'hyperlinks'}]
             },
             {
                 text: '!',
